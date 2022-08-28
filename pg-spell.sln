@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32505.173
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "source", "source", "{7D736B9A-A649-47A4-BC56-3A744A6F10BC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B799D39E-60A0-476B-9E8C-9B89B758139B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "build\_build.csproj", "{37F038F6-4CD5-4F14-A431-D4F522803033}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Steelax.PgSpell", "source\Steelax.PgSpell\Steelax.PgSpell.csproj", "{ED599C13-344B-4625-A9C0-1929368D5F1B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{37F038F6-4CD5-4F14-A431-D4F522803033}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37F038F6-4CD5-4F14-A431-D4F522803033}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED599C13-344B-4625-A9C0-1929368D5F1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED599C13-344B-4625-A9C0-1929368D5F1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED599C13-344B-4625-A9C0-1929368D5F1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED599C13-344B-4625-A9C0-1929368D5F1B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{ED599C13-344B-4625-A9C0-1929368D5F1B} = {7D736B9A-A649-47A4-BC56-3A744A6F10BC}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7C706E3C-05E7-4EEB-9D10-6692ACF3E8BD}
+	EndGlobalSection
+EndGlobal

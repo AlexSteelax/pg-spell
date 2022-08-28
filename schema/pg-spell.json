@@ -1,0 +1,220 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "PgSpellCollection",
+  "additionalProperties": false,
+  "properties": {
+    "tables": {
+      "type": "array",
+      "description": "Table declarations",
+      "items": {
+        "$ref": "#/definitions/table"
+      }
+    },
+    "composites": {
+      "type": "array",
+      "description": "Composite type declarations",
+      "items": {
+        "$ref": "#/definitions/composite"
+      }
+    },
+    "enums": {
+      "type": "array",
+      "description": "Enum type declarations",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "definitions": {
+    "table": {
+      "type": "object",
+      "$comment": "https://www.postgresql.org/docs/current/sql-createtable.html",
+      "required": [
+        "name",
+        "columns"
+      ],
+      "properties": {
+        "schema": {
+          "type": "string",
+          "description": "The table was created in this specified schema",
+          "default": "public",
+          "pattern": "[_A-z0-9]*$"
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the table to be created",
+          "minLength": 1,
+          "pattern": "[_A-z0-9]*$"
+        },
+        "comment": {
+          "type": "string",
+          "description": "Define or change the comment of an object"
+        },
+        "options": {
+          "type": "object",
+          "properties": {
+            "unlogged": {
+              "type": "boolean",
+              "description": "If specified, the table is created as an unlogged table. Data written to unlogged tables is not written to the write-ahead log, which makes them considerably faster than ordinary tables. However, they are not crash-safe: an unlogged table is automatically truncated after a crash or unclean shutdown. The contents of an unlogged table are also not replicated to standby servers. Any indexes created on an unlogged table are automatically unlogged as well.",
+              "default": false
+            }
+          }
+        },
+        "columns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/column"
+          },
+          "minLength": 1
+        }
+      }
+    },
+    "composite": {
+      "type": "object",
+      "$comment": "https://www.postgresql.org/docs/current/sql-createtype.html",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "schema": {
+          "type": "string",
+          "description": "The type was created in this specified schema",
+          "default": "public",
+          "pattern": "[_A-z0-9]*$"
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the type to be created",
+          "minLength": 1,
+          "pattern": "[_A-z0-9]*$"
+        },
+        "comment": {
+          "type": "string",
+          "description": "Define or change the comment of an object"
+        },
+        "columns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/column"
+          }
+        }
+      }
+    },
+    "index": {
+      "type": "object",
+      "$comment": "https://www.postgresql.org/docs/current/sql-createindex.html",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the index to be created. No schema name can be included here; the index is always created in the same schema as its parent table. If the name is omitted, PostgreSQL chooses a suitable name based on the parent table's name and the indexed column name(s)."
+        },
+        "unique": {
+          "type": "boolean",
+          "description": "Causes the system to check for duplicate values in the table when the index is created (if data already exist) and each time data is added. Attempts to insert or update data which would result in duplicate entries will generate an error.",
+          "default": false
+        },
+        "concurrently": {
+          "type": "boolean",
+          "description": "When this option is used, PostgreSQL will build the index without taking any locks that prevent concurrent inserts, updates, or deletes on the table; whereas a standard index build locks out writes (but not reads) on the table until it's done. There are several caveats to be aware of when using this option — see Building Indexes Concurrently below.",
+          "default": false
+        },
+        "include": {
+          "type": "array",
+          "description": "The optional INCLUDE clause specifies a list of columns which will be included in the index as non-key columns.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "method": {
+          "description": "The name of the index method to be used. Choices are btree, hash, gist, spgist, gin, and brin. The default method is btree.",
+          "enum": [ "btree", "hash", "gist", "spgist", "gin", "brin" ]
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "column": {
+                "type": "string",
+                "description": "The name of a column of the table"
+              },
+              "expression": {
+                "type": "string",
+                "description": "An expression based on one or more columns of the table. The expression usually must be written with surrounding parentheses, as shown in the syntax. However, the parentheses can be omitted if the expression has the form of a function call."
+              },
+              "order": {
+                "description": "Specifies ascending or descending sort order",
+                "enum": [ "asc", "desc" ],
+                "default": "asc"
+              },
+              "nulls": {
+                "description": "Specifies that nulls sort before/after non-nulls.",
+                "enum": [ "after", "before" ]
+              },
+              "predicate": {
+                "type": "string",
+                "description": "The constraint expression for a partial index."
+              }
+            }
+          }
+        }
+      }
+    },
+    "column": {
+      "type": "object",
+      "required": [
+        "type", "name"
+      ],
+      "properties": {
+        "type": {
+          "$comment": "https://www.postgresql.org/docs/current/datatype.html",
+          "description": "The data type of the column. This can include array specifiers.",
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "(var)?(bit|char)(\\[[1-9]+[0-9]?\\])$"
+            },
+            {
+              "type": "string",
+              "pattern": "timestamp(t)(z)?(\\[\\])?$"
+            },
+            {
+              "type": "string",
+              "pattern": "\\$([_A-z0-9]+\\.)?([_A-z0-9])+$"
+            },
+            {
+              "type": "string",
+              "enum": [
+                "bigint", "bigint[]",
+                "boolean", "boolean[]",
+                "bytea", "bytea[]",
+                "date", "date[]",
+                "double", "double[]",
+                "int", "int[]",
+                "money", "money[]",
+                "text", "text[]",
+                "uuid", "uuid[]"
+              ]
+            }
+          ]
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of a column to be created in the new table.",
+          "minLength": 1,
+          "pattern": "[_A-z0-9]*$"
+        },
+        "nullable": {
+          "type": "boolean",
+          "description": "Column can be null or not.",
+          "default": true
+        },
+        "comment": {
+          "type": "string",
+          "description": "Define or change the comment of an object"
+        }
+      }
+    }
+  }
+}
