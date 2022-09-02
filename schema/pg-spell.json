@@ -194,7 +194,8 @@
                 "int", "int[]",
                 "money", "money[]",
                 "text", "text[]",
-                "uuid", "uuid[]"
+                "uuid", "uuid[]",
+				"ltree"
               ]
             }
           ]
