@@ -216,6 +216,39 @@
           "description": "Define or change the comment of an object"
         }
       }
+    },
+    "enum": {
+      "type": "object",
+      "$comment": "https://www.postgresql.org/docs/current/sql-createtable.html",
+      "required": [
+        "name",
+        "items"
+      ],
+      "properties": {
+        "schema": {
+          "type": "string",
+          "description": "The enum was created in this specified schema",
+          "default": "public",
+          "pattern": "[_A-z0-9]*$"
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the enum to be created",
+          "minLength": 1,
+          "pattern": "[_A-z0-9]*$"
+        },
+        "comment": {
+          "type": "string",
+          "description": "Define or change the comment of an object"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minLength": 1
+        }
+      }
     }
   }
 }
