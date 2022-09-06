@@ -22,7 +22,7 @@
       "type": "array",
       "description": "Enum type declarations",
       "items": {
-        "type": "string"
+        "$ref": "#/definitions/enum"
       }
     }
   },
