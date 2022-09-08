@@ -94,6 +94,55 @@ namespace Steelax.PgSpell.Schema
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.7.1.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class Index
+    {
+        /// <summary>
+        /// The name of the index to be created. No schema name can be included here; the index is always created in the same schema as its parent table. If the name is omitted, PostgreSQL chooses a suitable name based on the parent table's name and the indexed column name(s).
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Causes the system to check for duplicate values in the table when the index is created (if data already exist) and each time data is added. Attempts to insert or update data which would result in duplicate entries will generate an error.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("unique", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool Unique { get; set; } = false;
+
+        /// <summary>
+        /// When this option is used, PostgreSQL will build the index without taking any locks that prevent concurrent inserts, updates, or deletes on the table; whereas a standard index build locks out writes (but not reads) on the table until it's done. There are several caveats to be aware of when using this option — see Building Indexes Concurrently below.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("concurrently", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool Concurrently { get; set; } = false;
+
+        /// <summary>
+        /// The optional INCLUDE clause specifies a list of columns which will be included in the index as non-key columns.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("include", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.ICollection<string> Include { get; set; }
+
+        /// <summary>
+        /// The name of the index method to be used. Choices are btree, hash, gist, spgist, gin, and brin. The default method is btree.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("method", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public IndexMethod Method { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("items", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.ICollection<Items> Items { get; set; }
+
+
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.7.1.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class Column
     {
         /// <summary>
@@ -137,6 +186,47 @@ namespace Steelax.PgSpell.Schema
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.7.1.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class Enum
+    {
+        /// <summary>
+        /// The enum was created in this specified schema
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("schema", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [System.ComponentModel.DataAnnotations.RegularExpression(@"[_A-z0-9]*$")]
+        public string Schema { get; set; } = "public";
+
+        /// <summary>
+        /// The name of the enum to be created
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required]
+        [System.ComponentModel.DataAnnotations.RegularExpression(@"[_A-z0-9]*$")]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Define or change the comment of an object
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("comment", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Comment { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("items", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required]
+        public System.Collections.Generic.ICollection<string> Items { get; set; } = new System.Collections.ObjectModel.Collection<string>();
+
+
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.7.1.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class PgSpellCollection
     {
         /// <summary>
@@ -155,7 +245,7 @@ namespace Steelax.PgSpell.Schema
         /// Enum type declarations
         /// </summary>
         [Newtonsoft.Json.JsonProperty("enums", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<string> Enums { get; set; }
+        public System.Collections.Generic.ICollection<Enum> Enums { get; set; }
 
 
     }
@@ -179,6 +269,110 @@ namespace Steelax.PgSpell.Schema
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.7.1.0 (Newtonsoft.Json v12.0.0.0)")]
+    public enum IndexMethod
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"btree")]
+        Btree = 0,
+
+
+        [System.Runtime.Serialization.EnumMember(Value = @"hash")]
+        Hash = 1,
+
+
+        [System.Runtime.Serialization.EnumMember(Value = @"gist")]
+        Gist = 2,
+
+
+        [System.Runtime.Serialization.EnumMember(Value = @"spgist")]
+        Spgist = 3,
+
+
+        [System.Runtime.Serialization.EnumMember(Value = @"gin")]
+        Gin = 4,
+
+
+        [System.Runtime.Serialization.EnumMember(Value = @"brin")]
+        Brin = 5,
+
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.7.1.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class Items
+    {
+        /// <summary>
+        /// The name of a column of the table
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("column", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Column { get; set; }
+
+        /// <summary>
+        /// An expression based on one or more columns of the table. The expression usually must be written with surrounding parentheses, as shown in the syntax. However, the parentheses can be omitted if the expression has the form of a function call.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("expression", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Expression { get; set; }
+
+        /// <summary>
+        /// Specifies ascending or descending sort order
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("order", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ItemsOrder Order { get; set; }
+
+        /// <summary>
+        /// Specifies that nulls sort before/after non-nulls.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("nulls", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ItemsNulls Nulls { get; set; }
+
+        /// <summary>
+        /// The constraint expression for a partial index.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("predicate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Predicate { get; set; }
+
+
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.7.1.0 (Newtonsoft.Json v12.0.0.0)")]
+    public enum ItemsOrder
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"asc")]
+        Asc = 0,
+
+
+        [System.Runtime.Serialization.EnumMember(Value = @"desc")]
+        Desc = 1,
+
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.7.1.0 (Newtonsoft.Json v12.0.0.0)")]
+    public enum ItemsNulls
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"after")]
+        After = 0,
+
+
+        [System.Runtime.Serialization.EnumMember(Value = @"before")]
+        Before = 1,
+
 
     }
 }
