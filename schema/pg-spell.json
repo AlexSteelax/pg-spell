@@ -206,6 +206,10 @@
           "minLength": 1,
           "pattern": "[_A-z0-9]*$"
         },
+        "identity": {
+          "type": "boolean",
+          "default": false
+        },
         "nullable": {
           "type": "boolean",
           "description": "Column can be null or not.",

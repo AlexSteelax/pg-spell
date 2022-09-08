@@ -160,6 +160,9 @@ namespace Steelax.PgSpell.Schema
         [System.ComponentModel.DataAnnotations.RegularExpression(@"[_A-z0-9]*$")]
         public string Name { get; set; }
 
+        [Newtonsoft.Json.JsonProperty("identity", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool Identity { get; set; } = false;
+
         /// <summary>
         /// Column can be null or not.
         /// </summary>

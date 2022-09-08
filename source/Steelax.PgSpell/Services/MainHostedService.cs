@@ -6,6 +6,7 @@ using Steelax.PgSpell.Settings;
 using System.Text;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
+using System.Linq;
 
 namespace Steelax.PgSpell.Services
 {
@@ -127,13 +128,14 @@ namespace Steelax.PgSpell.Services
                 sql.AppendLine($"create type {t.Schema}.{t.Name} as");
                 sql.AppendLine("(");
                 var idx = 0;
-                var clen = t.Columns.Count;
-                foreach (var c in t.Columns)
-                {
-                    idx++;
-                    var type = c.Type.TrimStart('$');
-                    sql.AppendLine($"\t{c.Name} {type}{(idx == clen ? "" : ",")}");
-                }
+                var clen = t.Columns?.Count ?? 0;
+                if (clen > 0)
+                    foreach (var c in t.Columns!)
+                    {
+                        idx++;
+                        var type = c.Type.TrimStart('$');
+                        sql.AppendLine($"\t{c.Name} {type}{(idx == clen ? "" : ",")}");
+                    }
                 sql.AppendLine(");");
             });
 
@@ -153,7 +155,7 @@ namespace Steelax.PgSpell.Services
                 sql.AppendLine(");");
             });
 
-            await File.WriteAllTextAsync(Path.Combine(_genOptions.Value.PathOut, "struct.sql"), sql.ToString());
+            await File.WriteAllTextAsync(Path.Combine(_genOptions.Value.PathOut!, "struct.sql"), sql.ToString());
         }
 
         public Task StopAsync(CancellationToken cancellationToken)
