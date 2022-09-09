@@ -8,7 +8,7 @@ namespace Steelax.PgSpell.Helpers
         {
             var assembly = Assembly.GetExecutingAssembly();
 
-            using var stream = assembly.GetManifestResourceStream($"{typeof(Program).Namespace}.{resource}");
+            using var stream = assembly.GetManifestResourceStream($"Steelax.PgSpell.{resource}");
 
             if (stream is null)
                 throw new NullReferenceException($"EmbeddedResource {resource} doesn't exist.");

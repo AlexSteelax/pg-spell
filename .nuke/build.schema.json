@@ -75,9 +75,12 @@
           "items": {
             "type": "string",
             "enum": [
+              "Announce",
               "Clean",
               "Compile",
               "Generate",
+              "Pack",
+              "Publish",
               "Restore",
               "Test"
             ]
@@ -93,9 +96,12 @@
           "items": {
             "type": "string",
             "enum": [
+              "Announce",
               "Clean",
               "Compile",
               "Generate",
+              "Pack",
+              "Publish",
               "Restore",
               "Test"
             ]
