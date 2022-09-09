@@ -83,22 +83,22 @@ class Build : NukeBuild
                 .EnableNoRestore()
                 .DisableProcessLogOutput());
         });
-    /*
+
     internal Target Pack => _ => _
         .DependsOn(Compile)
         .Executes(() =>
         {
             DotNetPack(settings => settings
-                .SetProject(Solution.GetProject("Steelax.EasyRoslyn"))
+                .SetProject(Solution.GetProject("Steelax.PgSpell"))
                 .SetConfiguration(Configuration)
                 .EnableNoBuild()
                 .EnableNoRestore()
                 .SetAuthors("AlexSteelax")
-                .SetPackageProjectUrl("https://github.com/AlexSteelax/easy-roslyn")
-                .SetRepositoryUrl("https://github.com/AlexSteelax/easy-roslyn.git")
+                .SetPackageProjectUrl("https://github.com/AlexSteelax/pg-spell")
+                .SetRepositoryUrl("https://github.com/AlexSteelax/pg-spell.git")
                 .SetRepositoryType("git")
-                .SetDescription("Easy code generation in runtime")
-                .SetPackageTags("Roslyn CSharp Emit CodeGeneration Easy")
+                .SetDescription("Postgres schema tool")
+                .SetPackageTags("Postgres Tool Easy")
                 .SetVersion(GitVersion.NuGetVersion)
                 .SetOutputDirectory(OutputDirectory));
         });
@@ -121,7 +121,7 @@ class Build : NukeBuild
                     );
                 });
         });
-    */
+
     internal Target Test => _ => _
         .DependsOn(Compile)
         .Executes(() =>
@@ -133,9 +133,9 @@ class Build : NukeBuild
                 .EnableNoBuild()
                 .DisableProcessLogOutput());
         });
-    /*
+
     internal Target Announce => _ => _
         .DependsOn(Test, Pack)
         .Triggers(Publish);
-    */
+
 }

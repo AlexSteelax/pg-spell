@@ -15,4 +15,6 @@
 	<ItemGroup>
 		<EmbeddedResource Include="..\..\schema\**" />
 	</ItemGroup>
+
+	<ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 </Project>
