@@ -17,5 +17,9 @@
 		<EmbeddedResource Include="..\..\schema\**" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Properties\" />
+	</ItemGroup>
+
 	<ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 </Project>
