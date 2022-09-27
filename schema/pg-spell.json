@@ -186,15 +186,36 @@
             {
               "type": "string",
               "enum": [
-                "bigint", "bigint[]",
-                "boolean", "boolean[]",
-                "bytea", "bytea[]",
-                "date", "date[]",
-                "double", "double[]",
-                "int", "int[]",
-                "money", "money[]",
-                "text", "text[]",
-                "uuid", "uuid[]",
+                "bigint",
+                "bigint[]",
+
+                "boolean",
+                "boolean[]",
+
+                "bytea",
+                "bytea[]",
+
+                "date",
+                "date[]",
+
+                "double",
+                "double[]",
+
+                "int",
+                "int[]",
+
+                "money",
+                "money[]",
+
+                "text",
+                "text[]",
+
+                "uuid",
+                "uuid[]",
+
+                "real",
+                "real[]",
+
                 "ltree"
               ]
             }

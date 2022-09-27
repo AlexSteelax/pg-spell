@@ -13,7 +13,7 @@ namespace Steelax.PgSpell.Services
     public interface IPgSpell
     {
         void CleadDefinition();
-        Task LoadDefinition(string definitionDir, SearchOption searchOption = SearchOption.AllDirectories);
+        Task<bool> LoadDefinition(string definitionDir, SearchOption searchOption = SearchOption.AllDirectories);
 
         ReadOnlyCollection<SqlObject> BuildSchemaSql(BuildSqlFilter? filter = default);
         ReadOnlyCollection<SqlObject> BuildEnumSql(BuildSqlFilter? filter = default);
@@ -41,7 +41,7 @@ namespace Steelax.PgSpell.Services
             _tables.Clear();
             _schemas.Clear();
         }
-        public async Task LoadDefinition(string definitionDir, SearchOption searchOption = SearchOption.AllDirectories)
+        public async Task<bool> LoadDefinition(string definitionDir, SearchOption searchOption = SearchOption.AllDirectories)
         {
             if (string.IsNullOrEmpty(definitionDir))
                 throw new ArgumentNullException(nameof(definitionDir));
@@ -51,7 +51,7 @@ namespace Steelax.PgSpell.Services
             if (yamlFiles.Length == 0)
             {
                 _logger.LogInformation("Yaml description files not found.");
-                return;
+                return true;
             }
             else
             {
@@ -87,7 +87,7 @@ namespace Steelax.PgSpell.Services
                         var prop = error.Property;
                         var err = error.ToString();
 
-                        _logger.LogError("{kind}: line {line} at pos {pos} from path {path} in {prop}\n{err}", kind, line, pos, path, prop, err);
+                        _logger.LogError("{filePath} {kind}: line {line} at pos {pos} from path {path} in {prop}\n{err}", _rel, kind, line, pos, path, prop, err);
                     }
 
                     if (errors.Any())
@@ -154,6 +154,8 @@ namespace Steelax.PgSpell.Services
 
                 _logger.LogInformation("All files have been processed.");
             }
+
+            return success;
         }
 
         private IEnumerable<SqlObject> WalkDeep(SqlObject obj)
